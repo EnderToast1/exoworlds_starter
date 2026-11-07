@@ -17,7 +17,7 @@ Open a terminal in this project folder.
 py -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-streamlit run app.py
+streamlit run Home.py
 ```
 
 If PowerShell blocks activation, use:
