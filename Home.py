@@ -51,15 +51,35 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("### Universe Explorer")
     st.write("Search a catalogue of real exoplanets and uncover the universe.")
-    st.page_link("pages/1_Universe_Explorer.py", label="Explore planets →")
+    st.markdown("""
+    <div class="observatory-box2">
+        <a class="home-link" href="/Universe_Explorer">
+            Explore planets →
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+
 with col2:
     st.markdown("### Planet Observatory")
     st.write("Inspect a planet's orbit, size, temperature and host star.")
-    st.page_link("pages/2_Planet_Observatory.py", label="Open observatory →")
+    st.markdown("""
+        <div class="observatory-box2">
+            <a class="home-link" href="/Planet_Observatory">
+                Open observatory →
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+
 with col3:
     st.markdown("### World Engineer")
     st.write("Change environmental conditions and see how a hypothetical world responds.")
-    st.page_link("pages/3_World_Engineer.py", label="Build a world →")
+    st.markdown("""
+        <div class="observatory-box2">
+            <a class="home-link" href="/World_Engineer">
+                Build a world  →
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
 
 st.divider()
 with st.spinner("Opening the star catalogue..."):

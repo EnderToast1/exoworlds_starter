@@ -64,6 +64,20 @@ def apply_global_styles():
     color: #D92906 !important;
     
 }
+.observatory-box2 {
+    background-color: #000000;
+    border: 1px solid #D92906;
+    padding: 18px 22px;
+    margin-top: 15px;
+    display: inline-block;
+    border-radius: 0;
+}
+.home-link {
+    font-size: 0.85rem !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
 
 
 [data-testid="stSidebarNavSeparator"] {
