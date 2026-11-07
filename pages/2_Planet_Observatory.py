@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -48,7 +50,8 @@ def compare_with_earth(
 
 
 apply_global_styles()
-LOGO = r"C:\Users\Willi\Documents\Hold\exoworlds_starter\exoworlds_starter\static\EWE_Logo.png"
+ROOT = Path(__file__).resolve().parent.parent
+LOGO = ROOT / "static" / "EWE_Logo.png"
 
 left, right = st.columns([4, 1])
 with left:

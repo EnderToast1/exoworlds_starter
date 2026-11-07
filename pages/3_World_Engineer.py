@@ -1,4 +1,5 @@
 import math
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
@@ -96,7 +97,8 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
 
 
 apply_global_styles()
-LOGO = r"C:\Users\Willi\Documents\Hold\exoworlds_starter\exoworlds_starter\static\EWE_Logo.png"
+ROOT = Path(__file__).resolve().parent.parent
+LOGO = ROOT / "static" / "EWE_Logo.png"
 
 left, right = st.columns([4, 1])
 with left:
