@@ -1,6 +1,7 @@
 import streamlit as st
 
 from Style import apply_global_styles
+from src.data import load_planets
 
 st.set_page_config(
     page_title="ExoWorlds | Explore the unknown",
@@ -30,6 +31,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.subheader("Choose your next discovery")
+st.divider()
 col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("### Universe Explorer")
@@ -45,8 +47,9 @@ with col3:
     st.page_link("pages/3_World_Engineer.py", label="Build a world →")
 
 st.divider()
+with st.spinner("Opening the star catalogue..."):
+    planets, data_source, load_error = load_planets()
 st.subheader("A universe of possibilities")
-a, b, c = st.columns(3)
-a.metric("Worlds to explore", "Number", help="Approximate order of magnitude; the catalogue changes as discoveries are confirmed.")
-b.metric("Our starting point", "Earth", help="Reference values are used for comparisons.")
-c.metric("Your role", "Explorer", help="The application uses scientific measurements and transparent calculations, not AI agents.")
+a, b= st.columns(2)
+a.metric("Worlds to explore", len(planets), help="The Number of confirmed exoplanets in the NASA API.")
+b.metric("Our reference point", "Earth", help="Reference values are used for comparisons.")

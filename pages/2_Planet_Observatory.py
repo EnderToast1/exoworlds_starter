@@ -4,6 +4,48 @@ import streamlit as st
 
 from Style import apply_global_styles
 from src.data import load_planets
+def compare_with_earth(
+    planet_name,
+    value,
+    property_name,
+    earth_value=1,
+    earth_label="Earth = 1",
+    unit="",
+    decimals=2
+):
+    st.subheader(f"Compared with Earth: {property_name}")
+
+    if pd.notna(value):
+        fig = go.Figure(go.Bar(
+            x=["Earth", planet_name],
+            y=[earth_value, value],
+            marker_color=["#50C878", "#69b7f0"],
+            text=[
+                round(earth_value, decimals),
+                round(value, decimals)
+            ],
+            textposition="outside",
+        ))
+
+        fig.update_layout(
+            height=330,
+            yaxis_title=f"{property_name} ({earth_label})",
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font_color="#e9edff",
+            margin=dict(l=10, r=10, t=20, b=10),
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    else:
+        st.markdown(f"""
+        <div class="info-box">
+            A {property_name.lower()} measurement is not available
+            for this planet.
+        </div>
+        """, unsafe_allow_html=True)
+
 
 apply_global_styles()
 
@@ -59,28 +101,12 @@ cols[3].metric("Equilibrium temperature", metric_value(p["pl_eqt"], " K", 0))
 st.divider()
 left, right = st.columns([1.1, 1])
 with left:
-    st.subheader("Compared with Earth")
-    radius = p["pl_rade"]
-    if pd.notna(radius):
-        fig = go.Figure(go.Bar(
-            x=["Earth", p["pl_name"]],
-            y=[1, radius],
-            marker_color=["#50C878", "#69b7f0"],
-            text=[1, round(radius, 2)],
-            textposition="outside",
-        ))
-        fig.update_layout(
-            height=330, yaxis_title="Radius (Earth = 1)",
-            paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-            font_color="#e9edff", margin=dict(l=10, r=10, t=20, b=10),
-        )
-        st.plotly_chart(fig, use_container_width=True)
-    else:
-        st.markdown("""
-        <div class="info-box">
-            A radius measurement is not available for this planet.
-        </div>
-        """, unsafe_allow_html=True)
+    compare_with_earth(
+        p["pl_name"],
+        p["pl_rade"],
+        "Radius",
+        earth_label="Earth radii"
+    )
 
 with right:
     st.subheader("Host star and discovery")
@@ -90,3 +116,5 @@ with right:
     st.write(f"**Method:** {p['discoverymethod']}")
 
 st.caption(f"Source: {data_source}. Planetary measurements are not direct photographs of the planet's surface.")
+
+

@@ -3,6 +3,12 @@ import streamlit as st
 def apply_global_styles():
     st.markdown("""
     <style>
+    .stDeployButton {
+    display: none;
+    }
+    [data-testid="stToolbar"] {
+        display: none;
+    }
    .stApp {
         background-color: #000000 !important;
         color: #FFFFFF !important;
