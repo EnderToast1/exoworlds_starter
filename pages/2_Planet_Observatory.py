@@ -20,7 +20,12 @@ with st.sidebar:
     st.caption("William Wain")
     st.divider()
 
-planets, source = load_planets()
+planets, data_source, load_error = load_planets()
+
+st.caption(f"Data source: {data_source}")
+
+if load_error:
+    st.warning(f"NASA data could not be loaded: {load_error}")
 if planets.empty:
     st.error("No planet data is available.")
     st.stop()
@@ -84,4 +89,4 @@ with right:
     st.write(f"**Discovery year:** {int(p['disc_year']) if pd.notna(p['disc_year']) else 'Not reported'}")
     st.write(f"**Method:** {p['discoverymethod']}")
 
-st.caption(f"Source: {source}. Planetary measurements are not direct photographs of the planet's surface.")
+st.caption(f"Source: {data_source}. Planetary measurements are not direct photographs of the planet's surface.")

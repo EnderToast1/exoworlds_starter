@@ -27,10 +27,15 @@ with st.sidebar:
     st.divider()
 
 with st.spinner("Opening the star catalogue..."):
-    planets, source = load_planets()
+    planets, data_source, load_error = load_planets()
+
+    st.caption(f"Data source: {data_source} · {len(planets):,} planets loaded")
+
+    if load_error:
+        st.warning(f"NASA data could not be loaded: {load_error}")
 
 
-st.caption(f"Data source: {source} · {len(planets):,} planets loaded")
+
 st.caption("")
 
 c1, c2, c3 = st.columns([2, 1, 1])
@@ -68,13 +73,29 @@ m3.metric("Discovery methods", f"{filtered['discoverymethod'].nunique():,}")
 st.divider()
 st.subheader("Planet catalogue")
 display = filtered[[
-    "pl_name", "hostname", "disc_year", "discoverymethod",
-    "pl_rade", "pl_eqt", "sy_dist"
+    "pl_name",
+    "hostname",
+    "disc_year",
+    "discoverymethod",
+    "pl_rade",
+    "pl_dens",
+    "pl_orbper",
+    "pl_orbeccen",
+    "pl_eqt",
+    "sy_dist"
 ]].rename(columns={
-    "pl_name": "Planet", "hostname": "Host star", "disc_year": "Year",
-    "discoverymethod": "Discovery method", "pl_rade": "Radius (Earth)",
-    "pl_eqt": "Temp. (K)", "sy_dist": "Distance (pc)"
+    "pl_name": "Planet",
+    "hostname": "Host star",
+    "disc_year": "Year",
+    "discoverymethod": "Discovery method",
+    "pl_rade": "Radius (Earth)",
+    "pl_dens": "Density (g/cm³)",
+    "pl_orbper": "Orbital Period (days)",
+    "pl_orbeccen": "Eccentricity",
+    "pl_eqt": "Temp. (K)",
+    "sy_dist": "Distance (pc)"
 })
+
 st.dataframe(display, use_container_width=True, hide_index=True, height=420)
 
 
