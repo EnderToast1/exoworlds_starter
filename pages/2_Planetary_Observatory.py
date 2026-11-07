@@ -129,8 +129,8 @@ LOGO = ROOT / "static" / "EWE_Logo.png"
 
 left, right = st.columns([4, 1])
 with left:
-    st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="", layout="wide")
-    st.title("Planet Observatory")
+    st.set_page_config(page_title="Planetary Observatory | ExoWorlds", page_icon="", layout="wide")
+    st.title("Planetary Observatory")
     st.caption("A closer look at exoplanet properties.")
 with right:
     st.image(str(LOGO), use_container_width=True)
