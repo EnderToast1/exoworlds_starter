@@ -20,13 +20,15 @@ st.set_page_config(
 apply_global_styles()
 
 with st.sidebar:
-    st.markdown("**MISSION CONTROL**")
-    st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
-    st.divider()
+    st.markdown(
+        '<p class="sidebar-write">Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
     st.markdown("Wi-Fi Hiders")
     st.caption("Alex Battrick")
     st.caption("William Wain")
-    st.divider()
+    st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
 
 
 hero_text, hero_image = st.columns([4, 1])

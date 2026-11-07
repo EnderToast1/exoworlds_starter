@@ -83,7 +83,11 @@ def apply_global_styles():
 [data-testid="stSidebarNavSeparator"] {
     border: none !important;
     border-top: 1px solid #D92906 !important;
+
+    margin-top: 20px !important;
+
 }
+
 [data-testid="stSidebarNavLinkContainer"] {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
@@ -92,11 +96,70 @@ def apply_global_styles():
 
 }
 
+[data-testid="stSidebarUserContent"] {
+    padding: 0 !important;
+}
+
 [data-testid="stSidebarNav"] a:hover {
     background-color: #3C0000 !important;
     color: #FFFFFF !important;
     border-radius: 0 !important;
 }
+
+/* Navigation heading */
+[data-testid="stSidebarNav"]::before {
+    content: "MISSION CONTROL";
+    display: block;
+
+    /* Match Mission Control */
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+
+    /* Match the separation */
+    padding: 0px 0px 12px 0px;
+    margin: 0px 0px 16px 0px;
+
+    /* Red separator */
+    border-bottom: 1px solid #D92906;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px !important;
+
+
+    /* Alignment with sidebar links */
+    padding: 0px 8px 12px 8px;
+    margin: 0 0 12px 0;
+
+    /* Red separator underneath */
+    border-bottom: 1px solid #D92906;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Sidebar navigation links */
+[data-testid="stSidebarNavLinkContainer"] {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+}
+
+/* Hover effect */
+[data-testid="stSidebarNav"] a:hover {
+    background-color: #3C0000 !important;
+    color: #FFFFFF !important;
+    border-radius: 0 !important;
+}
+
+/* Existing separators */
+[data-testid="stSidebarNavSeparator"] {
+    border: none !important;
+    border-top: 1px solid #D92906 !important;
+}
+
 
 /* Currently selected page */
 [data-testid="stSidebarNav"] a[aria-current="page"] {
@@ -107,6 +170,13 @@ def apply_global_styles():
 }
 [data-testid="stSidebarNav"] [role="button"] {
     border-radius: 0 !important;
+}
+
+.sidebar-write {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    font-family: 'Inter', sans-serif;
+    color: white;
 }
 
 .info-box {
@@ -147,7 +217,17 @@ def apply_global_styles():
     border: none !important;
     border-top: 1px solid #D92906 !important;
     opacity: 1 !important;
+    
 }
+/* First divider */
+hr.divider-one {
+    border: none !important;
+    border-top: 1px solid #D92906 !important;
+    opacity: 1 !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
 [data-testid="stTextInputRootElement"] {
     background-color: #000000 !important; 
     border-radius: 0!important;
