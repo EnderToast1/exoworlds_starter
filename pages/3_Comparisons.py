@@ -3,7 +3,7 @@ from pathlib import Path
 import streamlit as st
 
 st.set_page_config(
-    page_title="New Page | ExoWorlds",
+    page_title="Comparison | ExoWorlds",
     layout="wide"
 )
 
@@ -16,9 +16,9 @@ ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
 left, right = st.columns([4, 1])
 with left:
-    st.title("New Page")
+    st.title("Comparison")
     st.markdown(
-        '<p class="search-caption">Search confirmed exoplanets.</p>',
+        '<p class="search-caption">Compare exoplanets.</p>',
         unsafe_allow_html=True
     )
 with right:

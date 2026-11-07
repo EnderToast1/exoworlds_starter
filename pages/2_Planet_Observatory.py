@@ -49,6 +49,69 @@ def compare_with_earth(
         """, unsafe_allow_html=True)
 
 
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+
+
+def compare_planets(
+    planet1_name,
+    value1,
+    planet2_name,
+    value2,
+    property_name,
+    unit="",
+    decimals=2
+):
+    st.subheader(f"Planet comparison: {property_name}")
+
+    # Check whether either planet has a measurement
+    available = []
+    missing = []
+
+    if pd.notna(value1):
+        available.append((planet1_name, value1))
+    else:
+        missing.append(planet1_name)
+
+    if pd.notna(value2):
+        available.append((planet2_name, value2))
+    else:
+        missing.append(planet2_name)
+
+    if available:
+        names = [item[0] for item in available]
+        values = [item[1] for item in available]
+
+        fig = go.Figure(go.Bar(
+            x=names,
+            y=values,
+            marker_color=["#50C878", "#69b7f0"][:len(available)],
+            text=[f"{v:,.{decimals}f}{unit}" for v in values],
+            textposition="outside",
+        ))
+
+        fig.update_layout(
+            height=330,
+            yaxis_title=f"{property_name} ({unit})" if unit else property_name,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font_color="#e9edff",
+            margin=dict(l=10, r=10, t=20, b=10),
+            showlegend=False,
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    if missing:
+        st.markdown(f"""
+        <div class="info-box">
+            No {property_name.lower()} measurement available for:
+            {", ".join(missing)}
+        </div>
+        """, unsafe_allow_html=True)
+
+
 apply_global_styles()
 ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
@@ -127,3 +190,42 @@ with right:
 st.caption(f"Source: {data_source}. Planetary measurements are not direct photographs of the planet's surface.")
 
 
+left,right =st.columns([1, 1])
+with left:
+    compare_with_earth(
+        p["pl_name"],
+        p["pl_bmasse"],
+        "Mass",
+        earth_label="Earth masses"
+    )
+with right:
+    compare_with_earth(
+        p["pl_name"],
+        p["pl_orbper"],
+        "Orbital period",
+        earth_label="Earth Days"
+    )
+
+left,right =st.columns([1, 1])
+with left:
+    compare_planets(
+        "Earth",
+        0.0167,
+        p["pl_name"],
+        p["pl_orbeccen"],
+        "Eccentricity",
+        " ",
+        5,
+
+    )
+
+with right:
+    compare_planets(
+        "Earth",
+        288,
+        p["pl_name"],
+        p["pl_eqt"],
+        "Temperature",
+        "K",
+        2
+    )
