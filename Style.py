@@ -140,6 +140,7 @@ def apply_global_styles():
     margin-bottom: 8px;
 }
 
+
 /* Selectbox styling */
 /* Force square corners on the entire selectbox */
 [data-testid="stSelectbox"],
