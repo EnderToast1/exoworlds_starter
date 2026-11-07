@@ -1,9 +1,13 @@
 import streamlit as st
+
+from Style import apply_global_styles
 from src.data import load_planets
 
-st.set_page_config(page_title="Universe Explorer | ExoWorlds", page_icon="🔭", layout="wide")
-st.title("🔭 Universe Explorer")
-st.caption("Search confirmed exoplanets and find a world that catches your attention.")
+apply_global_styles()
+
+st.set_page_config(page_title="Universe Explorer | ExoWorlds", layout="wide")
+st.title("Universe Explorer")
+st.caption("Search confirmed exoplanets.")
 
 with st.spinner("Opening the star catalogue..."):
     planets, source = load_planets()

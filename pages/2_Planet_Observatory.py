@@ -1,7 +1,11 @@
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+
+from Style import apply_global_styles
 from src.data import load_planets
+
+apply_global_styles()
 
 st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="🌍", layout="wide")
 st.title("🌍 Planet Observatory")

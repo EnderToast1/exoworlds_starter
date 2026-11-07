@@ -1,5 +1,7 @@
 import streamlit as st
 
+from Style import apply_global_styles
+
 st.set_page_config(
     page_title="ExoWorlds | Explore the unknown",
     page_icon="🪐",
@@ -7,56 +9,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Shared visual styling
-st.markdown("""
-<style>
-    .stApp {
-        background:
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-    }
-    
-    [data-testid="stSidebar"] {
-        background: #000000;
-        border-right: 1px solid rgba(255, 255, 255, 1);
-    }
-    .hero {
-        border-radius: 24px;
-        margin-bottom: 1.4rem;
-        font-family: 'Inter', sans-serif;
-    }
-    .eyebrow {
-        color: #D92906;
-        text-transform: uppercase;
-        letter-spacing: .18em;
-        font-size: .95rem;
-        font-weight: 700;
-        font-family: 'Inter', sans-serif;
-    }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.6rem); margin: .25rem 0; font-family: 'Inter', sans-serif; }
-    .hero p { color: #FFFFFF; font-size: 1.08rem; max-width: 780px; font-family: 'Inter', sans-serif;}
-    div[data-testid="stMetric"] {
-        border: 1px solid rgba(217, 41, 6,1);
-        padding: 1rem;
-        font-family: 'Inter', sans-serif;
-    }
-    .small-note { color: #9ba9cb; font-size: .85rem; font-family: 'Inter', sans-serif; }
-
-[data-testid="stSidebarNavSeparator"] {
-    border: none !important;
-    border-top: 1px solid #D92906 !important;
-}
-[data-testid="stSidebarNavLinkContainer"] {
-
-}
-
-    hr {
-    border: none !important;
-    border-top: 1px solid #D92906 !important;
-    opacity: 1 !important;
-}
-</style>
-""", unsafe_allow_html=True)
+apply_global_styles()
 
 with st.sidebar:
     st.markdown("**MISSION CONTROL**")

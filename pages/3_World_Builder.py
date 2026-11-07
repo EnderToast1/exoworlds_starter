@@ -1,6 +1,10 @@
 import math
 import streamlit as st
 
+from Style import apply_global_styles
+
+apply_global_styles()
+
 st.set_page_config(page_title="World Builder | ExoWorlds", page_icon="🧪", layout="wide")
 st.title("🧪 World Builder")
 st.caption("Create a hypothetical planet by changing its physical environment.")
