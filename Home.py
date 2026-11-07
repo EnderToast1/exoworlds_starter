@@ -4,7 +4,7 @@ from Style import apply_global_styles
 
 st.set_page_config(
     page_title="ExoWorlds | Explore the unknown",
-    page_icon="🪐",
+    page_icon="",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -14,6 +14,10 @@ apply_global_styles()
 with st.sidebar:
     st.markdown("**MISSION CONTROL**")
     st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
+    st.divider()
+    st.markdown("Wi-Fi Hiders")
+    st.caption("Alex Battrick")
+    st.caption("William Wain")
     st.divider()
 
 st.markdown("""
@@ -36,9 +40,9 @@ with col2:
     st.write("Inspect a planet's orbit, size, temperature and host star.")
     st.page_link("pages/2_Planet_Observatory.py", label="Open observatory →")
 with col3:
-    st.markdown("### World Builder")
+    st.markdown("### World Engineer")
     st.write("Change environmental conditions and see how a hypothetical world responds.")
-    st.page_link("pages/3_World_Builder.py", label="Build a world →")
+    st.page_link("pages/3_World_Engineer.py", label="Build a world →")
 
 st.divider()
 st.subheader("A universe of possibilities")

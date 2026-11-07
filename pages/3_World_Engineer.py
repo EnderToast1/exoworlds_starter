@@ -5,9 +5,19 @@ from Style import apply_global_styles
 
 apply_global_styles()
 
-st.set_page_config(page_title="World Builder | ExoWorlds", page_icon="🧪", layout="wide")
-st.title("🧪 World Builder")
+st.set_page_config(page_title="World Engineer | ExoWorlds", page_icon="", layout="wide")
+st.title(" World Engineer")
 st.caption("Create a hypothetical planet by changing its physical environment.")
+
+with st.sidebar:
+    st.markdown("**MISSION CONTROL**")
+    st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
+    st.divider()
+    st.markdown("Wi-Fi Hiders")
+    st.caption("Alex Battrick")
+    st.caption("William Wain")
+    st.divider()
+
 
 st.info("This is an educational toy model, not a validated climate simulator. Its outputs are illustrative and should not be interpreted as evidence that a planet could support life.")
 

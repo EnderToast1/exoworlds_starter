@@ -7,9 +7,18 @@ from src.data import load_planets
 
 apply_global_styles()
 
-st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="🌍", layout="wide")
-st.title("🌍 Planet Observatory")
-st.caption("A closer look at the properties astronomers have measured.")
+st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="", layout="wide")
+st.title("Planet Observatory")
+st.caption("A closer look at exoplanet properties.")
+
+with st.sidebar:
+    st.markdown("**MISSION CONTROL**")
+    st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
+    st.divider()
+    st.markdown("Wi-Fi Hiders")
+    st.caption("Alex Battrick")
+    st.caption("William Wain")
+    st.divider()
 
 planets, source = load_planets()
 if planets.empty:
@@ -19,11 +28,18 @@ if planets.empty:
 names = planets["pl_name"].tolist()
 saved = st.session_state.get("selected_planet")
 index = names.index(saved) if saved in names else 0
-name = st.selectbox("Select a planet", names, index=index)
+with st.container():
+    st.markdown('<p class="planet-select-label">Select a planet</p>', unsafe_allow_html=True)
+    name = st.selectbox(
+        "Select a planet",
+        names,
+        index=index,
+        label_visibility="collapsed"
+    )
 st.session_state["selected_planet"] = name
 p = planets.loc[planets["pl_name"] == name].iloc[0]
 
-st.markdown(f"## 🪐 {p['pl_name']}")
+st.markdown(f"## {p['pl_name']}")
 st.write(f"Host star: **{p['hostname']}** · Discovery method: **{p['discoverymethod']}**")
 
 def metric_value(value, suffix="", decimals=2):
@@ -44,7 +60,7 @@ with left:
         fig = go.Figure(go.Bar(
             x=["Earth", p["pl_name"]],
             y=[1, radius],
-            marker_color=["#4f83cc", "#a78bfa"],
+            marker_color=["#50C878", "#69b7f0"],
             text=[1, round(radius, 2)],
             textposition="outside",
         ))
@@ -55,7 +71,11 @@ with left:
         )
         st.plotly_chart(fig, use_container_width=True)
     else:
-        st.info("A radius measurement is not available for this planet.")
+        st.markdown("""
+        <div class="info-box">
+            A radius measurement is not available for this planet.
+        </div>
+        """, unsafe_allow_html=True)
 
 with right:
     st.subheader("Host star and discovery")
@@ -63,6 +83,5 @@ with right:
     st.write(f"**Distance from Earth:** {metric_value(p['sy_dist'], ' parsecs')}")
     st.write(f"**Discovery year:** {int(p['disc_year']) if pd.notna(p['disc_year']) else 'Not reported'}")
     st.write(f"**Method:** {p['discoverymethod']}")
-    st.info("Measurements can be uncertain or unavailable. This prototype displays archive values rather than inventing missing measurements.")
 
 st.caption(f"Source: {source}. Planetary measurements are not direct photographs of the planet's surface.")

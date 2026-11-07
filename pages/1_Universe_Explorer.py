@@ -1,18 +1,37 @@
 import streamlit as st
 
+st.set_page_config(
+    page_title="Universe Explorer | ExoWorlds",
+    layout="wide"
+)
+
 from Style import apply_global_styles
 from src.data import load_planets
 
 apply_global_styles()
 
-st.set_page_config(page_title="Universe Explorer | ExoWorlds", layout="wide")
 st.title("Universe Explorer")
-st.caption("Search confirmed exoplanets.")
+st.markdown(
+    '<p class="search-caption">Search confirmed exoplanets.</p>',
+    unsafe_allow_html=True
+)
+
+
+with st.sidebar:
+    st.markdown("**MISSION CONTROL**")
+    st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
+    st.divider()
+    st.markdown("Wi-Fi Hiders")
+    st.caption("Alex Battrick")
+    st.caption("William Wain")
+    st.divider()
 
 with st.spinner("Opening the star catalogue..."):
     planets, source = load_planets()
 
+
 st.caption(f"Data source: {source} · {len(planets):,} planets loaded")
+st.caption("")
 
 c1, c2, c3 = st.columns([2, 1, 1])
 with c1:
@@ -58,22 +77,13 @@ display = filtered[[
 })
 st.dataframe(display, use_container_width=True, hide_index=True, height=420)
 
-if not filtered.empty:
-    st.subheader("Select a world")
-    names = filtered["pl_name"].tolist()
-    current = st.session_state.get("selected_planet")
-    default_index = names.index(current) if current in names else 0
-    selected = st.selectbox("Choose a planet to inspect", names, index=default_index)
-    st.session_state["selected_planet"] = selected
-    planet = filtered.loc[filtered["pl_name"] == selected].iloc[0]
 
-    with st.container(border=True):
-        st.markdown(f"### 🪐 {planet['pl_name']}")
-        st.write(f"Orbits **{planet['hostname']}** · Discovered {int(planet['disc_year']) if planet['disc_year'] == planet['disc_year'] else 'in an unreported year'}")
-        x, y, z = st.columns(3)
-        x.metric("Radius", f"{planet['pl_rade']:.2f} Earth radii" if planet['pl_rade'] == planet['pl_rade'] else "Unknown")
-        y.metric("Equilibrium temperature", f"{planet['pl_eqt']:.0f} K" if planet['pl_eqt'] == planet['pl_eqt'] else "Unknown")
-        z.metric("Distance", f"{planet['sy_dist']:.1f} parsecs" if planet['sy_dist'] == planet['sy_dist'] else "Unknown")
-        st.page_link("pages/2_Planet_Observatory.py", label="Open Planet Observatory →")
-else:
-    st.warning("No planets match those filters. Try clearing the search or discovery method.")
+st.caption("")
+
+st.markdown("""
+<div class="observatory-box">
+    <a class="observatory-link" href="/Planet_Observatory">
+        Open Planet Observatory →
+    </a>
+</div>
+""", unsafe_allow_html=True)
