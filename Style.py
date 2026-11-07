@@ -14,6 +14,9 @@ def apply_global_styles():
         color: #FFFFFF !important;
         font-family: 'Inter', sans-serif !important;
     }
+    [data-testid="stImage"] img {
+    border-radius: 0 !important;
+}
     
     [data-testid="stSidebar"] {
         background: #000000;

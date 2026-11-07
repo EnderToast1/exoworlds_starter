@@ -10,12 +10,16 @@ from src.data import load_planets
 
 apply_global_styles()
 
-st.title("Universe Explorer")
-st.markdown(
-    '<p class="search-caption">Search confirmed exoplanets.</p>',
-    unsafe_allow_html=True
-)
-
+LOGO = r"C:\Users\Willi\Documents\Hold\exoworlds_starter\exoworlds_starter\static\EWE_Logo.png"
+left, right = st.columns([4, 1])
+with left:
+    st.title("Universe Explorer")
+    st.markdown(
+        '<p class="search-caption">Search confirmed exoplanets.</p>',
+        unsafe_allow_html=True
+    )
+with right:
+    st.image(str(LOGO), use_container_width=True)
 
 with st.sidebar:
     st.markdown("**MISSION CONTROL**")

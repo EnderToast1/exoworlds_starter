@@ -48,10 +48,16 @@ def compare_with_earth(
 
 
 apply_global_styles()
+LOGO = r"C:\Users\Willi\Documents\Hold\exoworlds_starter\exoworlds_starter\static\EWE_Logo.png"
 
-st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="", layout="wide")
-st.title("Planet Observatory")
-st.caption("A closer look at exoplanet properties.")
+left, right = st.columns([4, 1])
+with left:
+    st.set_page_config(page_title="Planet Observatory | ExoWorlds", page_icon="", layout="wide")
+    st.title("Planet Observatory")
+    st.caption("A closer look at exoplanet properties.")
+with right:
+    st.image(str(LOGO), use_container_width=True)
+
 
 with st.sidebar:
     st.markdown("**MISSION CONTROL**")

@@ -1,7 +1,13 @@
+from pathlib import Path
+
 import streamlit as st
 
 from Style import apply_global_styles
 from src.data import load_planets
+
+LOGO = r"C:\Users\Willi\Documents\Hold\exoworlds_starter\exoworlds_starter\static\EWE_Logo.png"
+
+
 
 st.set_page_config(
     page_title="ExoWorlds | Explore the unknown",
@@ -21,15 +27,23 @@ with st.sidebar:
     st.caption("William Wain")
     st.divider()
 
-st.markdown("""
-<div class="hero">
-  <div class="eyebrow">Beyond our solar system</div>
-  <h1>Exo World Engineer</h1>
-  <p>Explore real planets orbiting distant stars. Compare their extreme environments
-  with Earth, then build a imaginary world of your own.</p>
-</div>
-""", unsafe_allow_html=True)
 
+hero_text, hero_image = st.columns([4, 1])
+
+with hero_text:
+    st.markdown("""
+    <div class="hero">
+      <div class="eyebrow">Beyond our solar system</div>
+      <h1>Exo World Engineer</h1>
+      <p>
+        Explore real planets orbiting distant stars. Compare their extreme
+        environments with Earth, then build an imaginary world of your own.
+      </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with hero_image:
+    st.image(str(LOGO), use_container_width=True)
 st.subheader("Choose your next discovery")
 st.divider()
 col1, col2, col3 = st.columns(3)

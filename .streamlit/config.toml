@@ -7,3 +7,4 @@ primaryColor = "#D92906"
 
 [server]
 runOnSave = true
+enableStaticServing = true
