@@ -21,7 +21,8 @@ select  pl_name,
     pl_dens,
     pl_eqt,
     sy_dist,
-    st_teff
+    st_teff,
+    pl_orbsmax
 from pscomppars
 order by disc_year desc
 """
@@ -77,7 +78,7 @@ def clean_planets(df):
     expected = [
         "pl_name", "hostname", "discoverymethod", "disc_year",
         "pl_orbper", "pl_orbeccen", "pl_rade", "pl_bmasse",
-        "pl_dens", "pl_eqt", "sy_dist", "st_teff"
+        "pl_dens", "pl_eqt", "sy_dist", "st_teff","pl_orbsmax"
     ]
 
     # Add any missing columns
@@ -95,7 +96,8 @@ def clean_planets(df):
         "pl_dens",
         "pl_eqt",
         "sy_dist",
-        "st_teff"
+        "st_teff",
+        "pl_orbsmax"
     ]
 
     for col in numeric_columns:

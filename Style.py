@@ -77,7 +77,19 @@ def apply_global_styles():
     color: #FFFFFF !important;
     text-decoration: none !important;
 }
+/* Square buttons */
+.stButton > button {
+    border-radius: 0 !important;
+    border: 1px solid #D92906 !important;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
 
+.stButton > button:hover {
+    background-color: #D92906 !important;
+    color: #FFFFFF !important;
+    border-color: #D92906 !important;
+}
 
 
 [data-testid="stSidebarNavSeparator"] {
