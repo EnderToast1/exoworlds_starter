@@ -141,11 +141,27 @@ def apply_global_styles():
 }
 
 /* Selectbox styling */
-[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
-    background-color: #000000 !important;
+/* Force square corners on the entire selectbox */
+[data-testid="stSelectbox"],
+[data-testid="stSelectbox"] *,
+[data-testid="stSelectbox"] *::before,
+[data-testid="stSelectbox"] *::after {
+    border-radius: 0 !important;
+}
+
+
+
+/* Main select control */
+[data-testid="stSelectbox"] [data-baseweb="select"] {
+    border-radius: 0 !important;
+}
+
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+    background: #000000 !important;
     border: 1px solid #D92906 !important;
     border-radius: 0 !important;
     color: #FFFFFF !important;
+    
 }
 
 
