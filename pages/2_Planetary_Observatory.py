@@ -17,7 +17,7 @@ def compare_with_earth(
     unit="",
     decimals=2
 ):
-    st.subheader(f"Compared with Earth: {property_name}")
+    st.subheader(f"Comparison: {property_name}")
 
     if pd.notna(value):
         fig = go.Figure(go.Bar(
@@ -62,10 +62,9 @@ def compare_planets(
     planet2_name,
     value2,
     property_name,
-    unit="",
     decimals=2
 ):
-    st.subheader(f"Planet comparison: {property_name}")
+    st.subheader(f"Comparison: {property_name}")
 
     # Check whether either planet has a measurement
     available = []
@@ -89,13 +88,13 @@ def compare_planets(
             x=names,
             y=values,
             marker_color=["#50C878", "#69b7f0"][:len(available)],
-            text=[f"{v:,.{decimals}f}{unit}" for v in values],
+            text=[f"{v:,.{decimals}f}" for v in values],
             textposition="outside",
         ))
 
         fig.update_layout(
             height=330,
-            yaxis_title=f"{property_name} ({unit})" if unit else property_name,
+            yaxis_title=f"{property_name}",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             font_color="#e9edff",
@@ -206,7 +205,7 @@ with left:
     compare_with_earth(
         p["pl_name"],
         p["pl_rade"],
-        "Radius",
+        "Radius (Multiple)",
         earth_label="Earth radii"
     )
 
@@ -227,14 +226,14 @@ with left:
     compare_with_earth(
         p["pl_name"],
         p["pl_bmasse"],
-        "Mass",
+        "Mass (Multiple)",
         earth_label="Earth masses"
     )
 with right:
     compare_with_earth(
         p["pl_name"],
         p["pl_orbper"],
-        "Orbital period",
+        "Orbital period (Days)",
         earth_label="Earth Days"
     )
 
@@ -246,7 +245,6 @@ with left:
         p["pl_name"],
         p["pl_orbeccen"],
         "Eccentricity",
-        " ",
         5,
 
     )
@@ -257,13 +255,13 @@ with right:
         288,
         p["pl_name"],
         p["pl_eqt"],
-        "Temperature",
-        "K",
-        2
+        "Temperature (Kelvin)",
+2
     )
 
 display_orbit(
     p["pl_name"],
     p["pl_orbsmax"],
-    p["pl_orbeccen"]
+    p["pl_orbeccen"],
+    p["pl_orbper"]
 )
