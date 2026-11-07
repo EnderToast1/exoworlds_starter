@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 
 import pandas as pd
@@ -5,6 +6,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from Style import apply_global_styles
+from src.orbitPlot import display_orbit
 from src.data import load_planets
 def compare_with_earth(
     planet_name,
@@ -111,6 +113,15 @@ def compare_planets(
         </div>
         """, unsafe_allow_html=True)
 
+def select_random_planet():
+    names = planets["pl_name"].tolist()
+    random_name = random.choice(names)
+
+    st.session_state["selected_planet"] = random_name
+    st.session_state["planet_selector"] = random_name
+
+
+
 
 apply_global_styles()
 ROOT = Path(__file__).resolve().parent.parent
@@ -145,17 +156,36 @@ if planets.empty:
     st.stop()
 
 names = planets["pl_name"].tolist()
+
 saved = st.session_state.get("selected_planet")
 index = names.index(saved) if saved in names else 0
+
 with st.container():
-    st.markdown('<p class="planet-select-label">Select a planet</p>', unsafe_allow_html=True)
-    name = st.selectbox(
-        "Select a planet",
-        names,
-        index=index,
-        label_visibility="collapsed"
+    st.markdown(
+        '<p class="planet-select-label">Select a planet</p>',
+        unsafe_allow_html=True
     )
+
+    col1, col2 = st.columns([4, 1])
+
+    with col1:
+        name = st.selectbox(
+            "Select a planet",
+            names,
+            index=index,
+            label_visibility="collapsed",
+            key="planet_selector"
+        )
+
+    with col2:
+        st.button(
+            "🎲 Random",
+            use_container_width=True,
+            on_click=select_random_planet
+        )
+
 st.session_state["selected_planet"] = name
+
 p = planets.loc[planets["pl_name"] == name].iloc[0]
 
 st.markdown(f"## {p['pl_name']}")
@@ -183,7 +213,9 @@ with left:
 with right:
     st.subheader("Host star and discovery")
     st.write(f"**Host star temperature:** {metric_value(p['st_teff'], ' K', 0)}")
-    st.write(f"**Distance from Earth:** {metric_value(p['sy_dist'], ' parsecs')}")
+    st.write(f"**Orbital radius around Host star:** {metric_value(p['pl_orbsmax'], ' AU', 3)}")
+    st.write(f"**Orbital eccentricity:** {metric_value(p['pl_orbeccen'], '', 4)}")
+    st.write(f"**Distance from Solar System:** {metric_value(p['sy_dist'], ' parsecs')}")
     st.write(f"**Discovery year:** {int(p['disc_year']) if pd.notna(p['disc_year']) else 'Not reported'}")
     st.write(f"**Method:** {p['discoverymethod']}")
 
@@ -229,3 +261,9 @@ with right:
         "K",
         2
     )
+
+display_orbit(
+    p["pl_name"],
+    p["pl_orbsmax"],
+    p["pl_orbeccen"]
+)
