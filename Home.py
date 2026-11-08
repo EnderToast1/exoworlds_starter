@@ -72,24 +72,24 @@ with col2:
     st.markdown("""
         <div class="observatory-box2">
             <a class="home-link" href="/Planetary_Observatory">
-                Open observatory →
+                Open Observatory →
             </a>
         </div>
         """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("### Stellar Comparison")
-    st.write("Compare Exoplanet Data.")
+    st.write("Compare Exoplanet Data to one another.")
     st.markdown("""
         <div class="observatory-box2">
             <a class="home-link" href="/Stellar_Comparison">
-                Compare Exoplanets  →
+                Compare Exoplanets →
             </a>
         </div>
         """, unsafe_allow_html=True)
 with col4:
     st.markdown("### World Engineer")
-    st.write("Change environmental conditions and see how a hypothetical world responds.")
+    st.write("Change conditions and see how a hypothetical world responds.")
     st.markdown("""
         <div class="observatory-box2">
             <a class="home-link" href="/World_Engineer">
