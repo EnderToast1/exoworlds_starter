@@ -79,17 +79,46 @@ def display_orbit(planet_name, hostname, planets):
     selected = next((o for o in orbiters if o["name"] == planet_name), None)
     reference = selected or min(orbiters, key=lambda o: o["period"])
 
-    skipped = len(system) - len(orbiters)
-    if skipped:
-        st.caption(
-            f"Showing {len(orbiters)} of {len(system)} planets around "
-            f"{hostname}; {skipped} missing usable orbital measurements."
-        )
-    elif len(orbiters) > 1:
-        st.caption(f"Showing all {len(orbiters)} planets around {hostname}.")
-
     # Sort inner → outer so legend/colours stay readable.
     orbiters = sorted(orbiters, key=lambda o: o["a"])
+
+    def apoapsis_of(orbiter):
+        return orbiter["a"] * (1 + orbiter["e"])
+
+    max_extent = max(apoapsis_of(o) for o in orbiters)
+
+    # Zoom around the selected planet so close-in orbits are not crushed
+    # by a distant outer companion on a linear scale.
+    focus = selected or orbiters[0]
+    focus_extent = apoapsis_of(focus)
+    view_span_limit = focus_extent * 2.2
+    framed_extent = max(
+        (apoapsis_of(o) for o in orbiters if apoapsis_of(o) <= view_span_limit),
+        default=focus_extent,
+    )
+    # Tight framing so the selected orbit fills most of the canvas.
+    view_extent = max(framed_extent * 1.2, focus_extent * 1.3)
+    x_limit = view_extent
+    y_limit = view_extent
+
+    clipped_outer = sum(1 for o in orbiters if apoapsis_of(o) > view_extent)
+    skipped = len(system) - len(orbiters)
+
+    notes = []
+    if skipped:
+        notes.append(
+            f"{skipped} planet(s) missing usable orbital measurements"
+        )
+    if clipped_outer:
+        notes.append(
+            f"zoomed to {planet_name}; {clipped_outer} outer orbit(s) "
+            f"lie outside this view"
+        )
+    elif len(orbiters) > 1:
+        notes.append(f"showing {len(orbiters)} planets around {hostname}")
+
+    if notes:
+        st.caption(" · ".join(notes).capitalize() + ".")
 
     fig = go.Figure()
 
@@ -102,8 +131,6 @@ def display_orbit(planet_name, hostname, planets):
     star_trace = path_count
     first_planet_trace = star_trace + 1
     day_trace = first_planet_trace + path_count
-
-    max_extent = 0.0
 
     for i, orbiter in enumerate(orbiters):
         x, y = _ellipse_path(orbiter["a"], orbiter["e"])
@@ -124,15 +151,12 @@ def display_orbit(planet_name, hostname, planets):
             showlegend=False,
         ))
 
-        apoapsis = orbiter["a"] * (1 + orbiter["e"])
-        max_extent = max(max_extent, apoapsis)
-
     fig.add_trace(go.Scatter(
         x=[0],
         y=[0],
         mode="markers",
         name=str(hostname),
-        marker=dict(size=18, color="#FFD166", symbol="star"),
+        marker=dict(size=22, color="#FFD166", symbol="star"),
     ))
 
     for i, orbiter in enumerate(orbiters):
@@ -147,16 +171,13 @@ def display_orbit(planet_name, hostname, planets):
             name=orbiter["name"],
             text=[orbiter["name"]] if is_selected else None,
             textposition="top center",
-            textfont=dict(color="#FFFFFF", size=11),
+            textfont=dict(color="#FFFFFF", size=12),
             marker=dict(
-                size=14 if is_selected else 10,
+                size=16 if is_selected else 11,
                 color=colour,
                 line=dict(width=2 if is_selected else 0, color="#FFFFFF"),
             ),
         ))
-
-    x_limit = max_extent * 1.25
-    y_limit = max_extent * 1.25
 
     fig.add_trace(go.Scatter(
         x=[-x_limit * 0.92],
@@ -171,18 +192,7 @@ def display_orbit(planet_name, hostname, planets):
 
     periapsis = reference["a"] * (1 - reference["e"])
     apoapsis = reference["a"] * (1 + reference["e"])
-    fig.add_annotation(
-        x=0,
-        y=max_extent,
-        text=(
-            f"{reference['name']}: {periapsis:.3f}–{apoapsis:.3f} AU"
-            if selected
-            else f"System span: {max_extent:.3f} AU"
-        ),
-        showarrow=False,
-        yshift=20,
-        font=dict(color="#FFFFFF", size=13),
-    )
+
 
     frame_count = 100
     repeat_count = 20
@@ -242,7 +252,7 @@ def display_orbit(planet_name, hostname, planets):
 
     fig.update_layout(
         title=title,
-        height=450,
+        height=720,
         paper_bgcolor="#080D1A",
         plot_bgcolor="#080D1A",
         font_color="#FFFFFF",
@@ -250,11 +260,11 @@ def display_orbit(planet_name, hostname, planets):
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=-0.18,
+            y=-0.12,
             xanchor="center",
             x=0.5,
         ),
-        margin=dict(l=10, r=10, t=50, b=80),
+        margin=dict(l=20, r=20, t=60, b=100),
         xaxis=dict(
             visible=False,
             showgrid=False,
@@ -263,6 +273,7 @@ def display_orbit(planet_name, hostname, planets):
             range=[-x_limit, x_limit],
             scaleanchor="y",
             scaleratio=1,
+            constrain="domain",
         ),
         yaxis=dict(
             visible=False,
@@ -270,13 +281,14 @@ def display_orbit(planet_name, hostname, planets):
             zeroline=False,
             showticklabels=False,
             range=[-y_limit, y_limit],
+            constrain="domain",
         ),
         updatemenus=[
             dict(
                 type="buttons",
                 showactive=False,
                 x=0.5,
-                y=-0.28,
+                y=-0.20,
                 xanchor="center",
                 bgcolor="#D92906",
                 bordercolor="#D92906",
