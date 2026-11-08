@@ -14,6 +14,8 @@ python -m pip install -r requirements.txt
 streamlit run Home.py
 ```
 
+OR USE the website at https://ewe-space.streamlit.app/
+
 
 Streamlit should open the app in your browser, usually at http://localhost:8501.
 
