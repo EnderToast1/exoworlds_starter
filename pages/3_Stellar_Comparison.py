@@ -104,13 +104,20 @@ with right:
     st.image(str(LOGO), use_container_width=True)
 
 with st.sidebar:
-    st.markdown("**MISSION CONTROL**")
-    st.write("Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds.")
-    st.divider()
-    st.markdown("Wi-Fi Hiders")
-    st.caption("Alex Battrick")
-    st.caption("William Wain")
-    st.divider()
+    st.markdown(
+        '<p class="sidebar-write">Use the pages above to discover real exoplanets, inspect their properties and experiment with hypothetical worlds</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
+    st.markdown(
+        '<p class="sidebar-write">Wi-Fi Hiders</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        '<p class="sidebar-write-small">Alex Battrick</p>\n<p class="sidebar-write-small">William Wain</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
 
 planets, data_source, load_error = load_planets()
 
