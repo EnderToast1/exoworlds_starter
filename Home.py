@@ -49,13 +49,13 @@ with hero_image:
     st.image(str(LOGO), use_container_width=True)
 st.subheader("Choose your next discovery")
 st.divider()
-col1, col2, col3 = st.columns(3)
+col1, col2, col3,col4 = st.columns(4)
 with col1:
-    st.markdown("### Universe Explorer")
+    st.markdown("### Cosmic Atlas")
     st.write("Search a catalogue of real exoplanets and uncover the universe.")
     st.markdown("""
     <div class="observatory-box2">
-        <a class="home-link" href="/Universe_Explorer">
+        <a class="home-link" href="/Cosmic_Atlas">
             Explore planets →
         </a>
     </div>
@@ -66,13 +66,23 @@ with col2:
     st.write("Inspect a planet's orbit, size, temperature and host star.")
     st.markdown("""
         <div class="observatory-box2">
-            <a class="home-link" href="/Planet_Observatory">
+            <a class="home-link" href="/Planetary_Observatory">
                 Open observatory →
             </a>
         </div>
         """, unsafe_allow_html=True)
 
 with col3:
+    st.markdown("### Stellar Comparison")
+    st.write("Compare Exoplanet Data.")
+    st.markdown("""
+        <div class="observatory-box2">
+            <a class="home-link" href="/Stellar_Comparison">
+                Compare Exoplanets  →
+            </a>
+        </div>
+        """, unsafe_allow_html=True)
+with col4:
     st.markdown("### World Engineer")
     st.write("Change environmental conditions and see how a hypothetical world responds.")
     st.markdown("""

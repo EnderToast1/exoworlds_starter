@@ -227,11 +227,13 @@ with left:
         earth_label="Earth masses"
     )
 with right:
-    compare_with_earth(
+    compare_planets(
+        "Earth",
+    365.24219,
         p["pl_name"],
         p["pl_orbper"],
         "Orbital period (Days)",
-        earth_label="Earth Days"
+        2
     )
 
 left,right =st.columns([1, 1])
