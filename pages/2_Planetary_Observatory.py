@@ -275,8 +275,6 @@ with right:
 
 display_orbit(
     p["pl_name"],
-    p["pl_orbsmax"],
-    p["pl_orbeccen"],
-    p["pl_orbper"],
-    p['hostname']
+    p["hostname"],
+    planets,
 )
