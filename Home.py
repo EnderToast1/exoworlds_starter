@@ -25,9 +25,14 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
-    st.markdown("Wi-Fi Hiders")
-    st.caption("Alex Battrick")
-    st.caption("William Wain")
+    st.markdown(
+        '<p class="sidebar-write">Wi-Fi Hiders</p>',
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        '<p class="sidebar-write-small">Alex Battrick</p>\n<p class="sidebar-write-small">William Wain</p>',
+        unsafe_allow_html=True
+    )
     st.markdown('<hr class="divider-one">', unsafe_allow_html=True)
 
 

@@ -3,6 +3,15 @@ import streamlit as st
 def apply_global_styles():
     st.markdown("""
     <style>
+    
+    :root {
+    --standard-text: 1rem;
+    --small-text: 0.8rem;
+    --big-text: 1.2rem;
+    --heading-small: 2rem;
+    --heading-big: 4.6rem;
+}
+    
     .stDeployButton {
     display: none;
     }
@@ -31,19 +40,23 @@ def apply_global_styles():
         color: #D92906;
         text-transform: uppercase;
         letter-spacing: .18em;
-        font-size: .95rem;
+        font-size: var(--big-text) !important;
         font-weight: 700;
         font-family: 'Inter', sans-serif;
     }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.6rem); margin: .25rem 0; font-family: 'Inter', sans-serif; }
-    .hero p { color: #FFFFFF; font-size: 1.08rem; max-width: 780px; font-family: 'Inter', sans-serif;}
-    .p { color: #FFFFFF; font-size: 1.08rem; max-width: 780px; font-family: 'Inter', sans-serif;}
+    .hero h1 { font-size: var(--heading-big) !important; margin: .25rem 0; font-family: 'Inter', sans-serif; }
+    .hero p { color: #FFFFFF; font-size: var(--standard-text) !important; max-width: 780px; font-family: 'Inter', sans-serif;}
+    .p { color: #FFFFFF; font-size: var(--standard-text) !important; max-width: 780px; font-family: 'Inter', sans-serif;}
     div[data-testid="stMetric"] {
         border: 1px solid rgba(217, 41, 6,1);
         padding: 1rem;
         font-family: 'Inter', sans-serif;
     }
-    .small-note { color: #9ba9cb; font-size: .85rem; font-family: 'Inter', sans-serif; }
+    .small-note { color: #9ba9cb; font-size: var(--small-text) !important; font-family: 'Inter', sans-serif; }
+
+[data-testid="stMarkdownContainer"] h3 {
+    font-size: var(--heading-small) !important;
+}
 
 .observatory-box {
     background-color: #000000;
@@ -55,7 +68,7 @@ def apply_global_styles():
 }
 
 .observatory-link {
-    font-size: 1.25rem !important;
+    font-size: var(--big-text) !important;
     color: #FFFFFF !important;
     text-decoration: none !important;
 }
@@ -67,13 +80,13 @@ def apply_global_styles():
 .observatory-box2 {
     background-color: #000000;
     border: 1px solid #D92906;
-    padding: 18px 22px;
-    margin-top: 15px;
+    padding: 16px 20px;
+    margin-top: 20px;
     display: inline-block;
     border-radius: 0;
 }
 .home-link {
-    font-size: 0.85rem !important;
+    font-size: var(--small-text) !important;
     color: #FFFFFF !important;
     text-decoration: none !important;
 }
@@ -100,14 +113,6 @@ def apply_global_styles():
 
 }
 
-[data-testid="stSidebarNavLinkContainer"] {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 14px !important;
-    max-width: 100% !important;
-    border-radius: 0 !important;
-
-}
-
 [data-testid="stSidebarUserContent"] {
     padding: 0 !important;
 }
@@ -118,43 +123,27 @@ def apply_global_styles():
     border-radius: 0 !important;
 }
 
-/* Navigation heading */
 [data-testid="stSidebarNav"]::before {
     content: "MISSION CONTROL";
     display: block;
 
-    /* Match Mission Control */
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: var(--big-text) !important;
     font-weight: 400;
     letter-spacing: 0px;
     color: #FFFFFF;
 
-    /* Match the separation */
-    padding: 0px 0px 12px 0px;
-    margin: 0px 0px 16px 0px;
+    padding: 0px 8px 20px 8px !important;
+    margin: 0px 0px 20px 0px !important;
 
-    /* Red separator */
     border-bottom: 1px solid #D92906;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 20px !important;
-
-
-    /* Alignment with sidebar links */
-    padding: 0px 8px 12px 8px;
-    margin: 0 0 12px 0;
-
-    /* Red separator underneath */
-    border-bottom: 1px solid #D92906;
-    box-sizing: border-box;
-    width: 100%;
 }
 
 /* Sidebar navigation links */
 [data-testid="stSidebarNavLinkContainer"] {
     font-family: 'Inter', sans-serif !important;
-    font-size: 14px !important;
     max-width: 100% !important;
     border-radius: 0 !important;
 }
@@ -189,6 +178,18 @@ def apply_global_styles():
     margin-bottom: 10px !important;
     font-family: 'Inter', sans-serif;
     color: white;
+    font-size: var(--standard-text) !important;
+    
+}
+
+.sidebar-write-small {
+    margin-top: 0px !important;
+    margin-bottom: 20px !important;
+    font-family: 'Inter', sans-serif;
+    font-size: var(--small-text) !important;
+    color: #808080 !important;
+    line-height: 0.2 !important;
+    font-weight: 600;
 }
 
 .info-box {
@@ -197,29 +198,29 @@ def apply_global_styles():
     border-radius: 0;
     padding: 14px 18px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: var(--small-text) !important;
     font-weight: 500;
 }
 
 /* Metric values */
 [data-testid="stMetricValue"] {
-    font-size: 1.5rem !important;
+    font-size: var(--heading-small) !important;
 }
 
 /* Metric labels */
 [data-testid="stMetricLabel"] {
-    font-size: 0.9rem !important;
+    font-size: var(--standard-text) !important;
 }
 
 /* Metric descriptions */
 [data-testid="stMetricDelta"] {
-    font-size: 0.7rem !important;
+    font-size: var(--small-text) !important;
 }
 
 
 /* Navigation text */
 [data-testid="stSidebarNav"] span {
-    font-size: 14px;
+    font-size: var(--standard-text) !important;
     color: #FFFFFF !important;
     font-weight: 500;
     border-radius: 0 !important;
@@ -249,7 +250,7 @@ hr.divider-one {
 
 .planet-select-label {
     color: #FFFFFF !important;
-    font-size: 1rem !important;
+    font-size: var(--standard-text) !important;
     font-weight: 700 !important;
     font-family: 'Inter', sans-serif !important;
     margin-bottom: 8px;
