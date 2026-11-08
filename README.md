@@ -24,6 +24,6 @@ Live planet data is requested from the NASA Exoplanet Archive TAP service, using
 NASA documentation:
 https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html
 
-## 6. Important scientific note
+## 6. Notes
 
-The World Builder score is an explicitly labelled illustrative heuristic. It is not a scientific habitability probability or a NASA metric. Missing archive values are displayed as unavailable, not guessed.
+World Engineer score is a demo only — not a NASA or scientific habitability metric. Missing archive values stay blank; we don't invent them.

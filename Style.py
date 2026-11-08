@@ -90,7 +90,6 @@ def apply_global_styles():
     color: #FFFFFF !important;
     text-decoration: none !important;
 }
-/* Square buttons */
 .stButton > button {
     border-radius: 0 !important;
     border: 1px solid #D92906 !important;
@@ -141,28 +140,23 @@ def apply_global_styles():
     box-sizing: border-box;
 }
 
-/* Sidebar navigation links */
 [data-testid="stSidebarNavLinkContainer"] {
     font-family: 'Inter', sans-serif !important;
     max-width: 100% !important;
     border-radius: 0 !important;
 }
 
-/* Hover effect */
 [data-testid="stSidebarNav"] a:hover {
     background-color: #3C0000 !important;
     color: #FFFFFF !important;
     border-radius: 0 !important;
 }
 
-/* Existing separators */
 [data-testid="stSidebarNavSeparator"] {
     border: none !important;
     border-top: 1px solid #D92906 !important;
 }
 
-
-/* Currently selected page */
 [data-testid="stSidebarNav"] a[aria-current="page"] {
     background-color: #D92906 !important;
     color: #FFFFFF !important;
@@ -202,23 +196,18 @@ def apply_global_styles():
     font-weight: 500;
 }
 
-/* Metric values */
 [data-testid="stMetricValue"] {
     font-size: var(--heading-small) !important;
 }
 
-/* Metric labels */
 [data-testid="stMetricLabel"] {
     font-size: var(--standard-text) !important;
 }
 
-/* Metric descriptions */
 [data-testid="stMetricDelta"] {
     font-size: var(--small-text) !important;
 }
 
-
-/* Navigation text */
 [data-testid="stSidebarNav"] span {
     font-size: var(--standard-text) !important;
     color: #FFFFFF !important;
@@ -232,7 +221,7 @@ def apply_global_styles():
     opacity: 1 !important;
     
 }
-/* First divider */
+
 hr.divider-one {
     border: none !important;
     border-top: 1px solid #D92906 !important;
@@ -257,8 +246,6 @@ hr.divider-one {
 }
 
 
-/* Selectbox styling */
-/* Force square corners on the entire selectbox */
 [data-testid="stSelectbox"],
 [data-testid="stSelectbox"] *,
 [data-testid="stSelectbox"] *::before,
@@ -266,9 +253,6 @@ hr.divider-one {
     border-radius: 0 !important;
 }
 
-
-
-/* Main select control */
 [data-testid="stSelectbox"] [data-baseweb="select"] {
     border-radius: 0 !important;
 }
@@ -281,8 +265,6 @@ hr.divider-one {
     
 }
 
-
-/* Main multiselect container */
 [data-testid="stMultiSelect"] [role="group"] {
     background: #000000 !important;
     border: 1px solid #D92906 !important;
@@ -290,22 +272,18 @@ hr.divider-one {
     box-shadow: none !important;
 }
 
-/* Selected option tags */
 [data-testid="stMultiSelect"] [data-testid="stMultiSelectTagsContainer"] > * {
     border-radius: 0 !important;
 }
 
-/* All nested elements inside selected tags */
 [data-testid="stMultiSelect"] [data-testid="stMultiSelectTagsContainer"] > * * {
     border-radius: 0 !important;
 }
 
-/* Selected tag backgrounds */
 [data-testid="stMultiSelect"] [data-testid="stMultiSelectTagsContainer"] button {
     border-radius: 0 !important;
 }
 
-/* Text and input */
 [data-testid="stMultiSelect"] input {
     color: #FFFFFF !important;
     -webkit-text-fill-color: #FFFFFF !important;
@@ -316,20 +294,12 @@ hr.divider-one {
     opacity: 1 !important;
 }
 
-
-
-/* Dataframe outer border */
 [data-testid="stDataFrame"] {
     border: 1px solid #D92906 !important;
 }
 
-/* Force white gridlines inside the dataframe */
 [data-testid="stDataFrame"] canvas {
     filter: none !important;
-}
-
-/* Dataframe header and cell text */
-[data-testid="stDataFrame"] canvas {
     color: #FFFFFF !important;
 }
 

@@ -47,7 +47,6 @@ def compare_planets(
 ):
     st.subheader(f"Comparison: {property_name}")
 
-    # Check whether either planet has a measurement
     available = []
     missing = []
 
@@ -127,7 +126,6 @@ with st.sidebar:
 planets, data_source, load_error = load_planets()
 
 names = planets["pl_name"].tolist()
-# Restore previously selected planets
 saved1 = st.session_state.get("selected_planet_1")
 saved2 = st.session_state.get("selected_planet_2")
 

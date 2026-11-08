@@ -11,14 +11,13 @@ def get_temperature_colour(temperature):
     if pd.isna(temperature):
         return "#808080"
 
-    # Temperature gradient stops
     stops = [
-        (-100, (80, 160, 255)),   # Blue
-        (-20,  (155, 212, 245)),  # Light blue
-        (20,   (76, 170, 131)),   # Green
-        (65,   (217, 120, 67)),   # Orange
-        (150,  (220, 45, 45)),    # Red
-        (500,  (150, 20, 50))     # Dark red
+        (-100, (80, 160, 255)),
+        (-20,  (155, 212, 245)),
+        (20,   (76, 170, 131)),
+        (65,   (217, 120, 67)),
+        (150,  (220, 45, 45)),
+        (500,  (150, 20, 50)),
     ]
 
     temperature = max(stops[0][0], min(temperature, stops[-1][0]))
@@ -41,18 +40,8 @@ def get_temperature_colour(temperature):
 
 
 def calculate_habitability(temperature, atmosphere, water, gravity):
-    """
-    Calculates an Earth-like habitability score from 0–100.
-
-    temperature: °C
-    atmosphere: atmospheric pressure in atm
-    water: percentage of surface covered by liquid water
-    gravity: relative to Earth's gravity (1g)
-    """
-
-    # Individual factor scores
+    # temperature °C, atmosphere atm, water %, gravity in g
     temp_score = math.exp(-((temperature - 15) / 40) ** 2)
-
     pressure_score = math.exp(-((atmosphere - 1.0) / 1.2) ** 2)
 
     if 40 <= water <= 80:
@@ -66,7 +55,6 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
 
     gravity_score = math.exp(-((gravity - 1.0) / 0.6) ** 2)
 
-    # Weighted average
     weighted_score = (
         0.35 * temp_score +
         0.25 * pressure_score +
@@ -74,7 +62,6 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
         0.15 * gravity_score
     )
 
-    # Penalise extremely unsuitable conditions
     weakest_factor = min(
         temp_score,
         pressure_score,
@@ -86,7 +73,6 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
         100 * weighted_score * (0.3 + 0.7 * weakest_factor)
     )
 
-    # Hard limits for unsuitable essential conditions
     if temp_score < 0.05 or pressure_score < 0.05 or water_score == 0:
         score = min(score, 15)
 
@@ -140,8 +126,7 @@ with left:
     water = st.slider("Surface water coverage (%)", 0, 100, 70, 5)
     gravity = st.slider("Surface gravity (Earth = 1)", 0.2, 5.0, 1.0, 0.1)
 
-# Simple transparent heuristic score; not a scientific habitability probability.
-score=calculate_habitability(temperature, atmosphere, water, gravity)
+score = calculate_habitability(temperature, atmosphere, water, gravity)
 
 with right:
     st.subheader("Your world")

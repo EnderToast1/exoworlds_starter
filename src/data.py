@@ -7,7 +7,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLE_FILE = ROOT / "data" / "exoplanets_sample.csv"
 
-# NASA Exoplanet Archive TAP service. We request only fields used by this prototype.
+# NASA Exoplanet Archive TAP
 TAP_URL = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
 QUERY = """
 select  pl_name,
@@ -29,8 +29,6 @@ order by disc_year desc
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def load_planets():
-    """Load confirmed exoplanets from NASA, with an offline fallback."""
-
     try:
         response = requests.get(
             TAP_URL,
@@ -61,7 +59,6 @@ def load_planets():
         error = f"{type(e).__name__}: {e}"
         print(f"NASA API error: {error}")
 
-        # Check whether fallback data exists
         if not SAMPLE_FILE.exists():
             raise FileNotFoundError(
                 f"Sample dataset not found: {SAMPLE_FILE}\n"
@@ -81,12 +78,10 @@ def clean_planets(df):
         "pl_dens", "pl_eqt", "sy_dist", "st_teff","pl_orbsmax"
     ]
 
-    # Add any missing columns
     for col in expected:
         if col not in df.columns:
             df[col] = pd.NA
 
-    # Convert numeric columns
     numeric_columns = [
         "disc_year",
         "pl_orbper",
@@ -103,7 +98,6 @@ def clean_planets(df):
     for col in numeric_columns:
         df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    # Clean text columns
     df["pl_name"] = df["pl_name"].fillna("Unnamed planet").astype(str)
     df["hostname"] = df["hostname"].fillna("Unknown star").astype(str)
     df["discoverymethod"] = (

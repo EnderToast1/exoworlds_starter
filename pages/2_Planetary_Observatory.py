@@ -63,7 +63,6 @@ def compare_planets(
 ):
     st.subheader(f"Comparison: {property_name}")
 
-    # Check whether either planet has a measurement
     available = []
     missing = []
 
