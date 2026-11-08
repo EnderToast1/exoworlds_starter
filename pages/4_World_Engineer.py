@@ -93,12 +93,16 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
     return score
 
 
-
-
-st.set_page_config(page_title="World Engineer | ExoWorlds", page_icon="", layout="wide")
-apply_global_styles()
 ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
+LOGOFav = ROOT / "static" / "EWE_Favicon.png"
+
+st.set_page_config(page_title="World Engineer | ExoWorlds",
+    page_icon=str(LOGOFav),
+    layout="wide",
+    initial_sidebar_state="expanded",)
+apply_global_styles()
+
 
 left, right = st.columns([4, 1])
 with left:

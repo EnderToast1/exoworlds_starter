@@ -7,12 +7,13 @@ from src.data import load_planets
 
 ROOT = Path(__file__).resolve().parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
+LOGOFav = ROOT / "static" / "EWE_Favicon.png"
 
 
 
 st.set_page_config(
     page_title="ExoWorlds | Explore the unknown",
-    page_icon="",
+    page_icon=str(LOGOFav),
     layout="wide",
     initial_sidebar_state="expanded",
 )

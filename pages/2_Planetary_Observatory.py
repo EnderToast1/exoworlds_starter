@@ -122,6 +122,14 @@ def select_random_planet():
 apply_global_styles()
 ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
+LOGOFav = ROOT / "static" / "EWE_Favicon.png"
+
+st.set_page_config(
+    page_title="Planetary Observatory",
+    page_icon = str(LOGOFav),
+    layout = "wide",
+    initial_sidebar_state = "expanded",
+)
 
 left, right = st.columns([4, 1])
 with left:

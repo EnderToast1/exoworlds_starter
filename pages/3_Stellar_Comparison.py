@@ -7,9 +7,15 @@ from Style import apply_global_styles
 from src.data import load_planets
 
 
+ROOT = Path(__file__).resolve().parent.parent
+LOGO = ROOT / "static" / "EWE_Logo.png"
+LOGOFav = ROOT / "static" / "EWE_Favicon.png"
+
 st.set_page_config(
     page_title="Stellar Comparison | ExoWorlds",
-    layout="wide"
+    page_icon=str(LOGOFav),
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 comparison_options = {
     "Radius (Earth Multiple)": ("pl_rade", 3),
@@ -91,8 +97,7 @@ def compare_planets(
 
 apply_global_styles()
 
-ROOT = Path(__file__).resolve().parent.parent
-LOGO = ROOT / "static" / "EWE_Logo.png"
+
 left, right = st.columns([4, 1])
 with left:
     st.title("Stellar Comparison")
