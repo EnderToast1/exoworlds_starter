@@ -146,8 +146,6 @@ with st.container():
         with random_col:
             st.button(
                 "🎲",
-                key="random_1",
-                help="Randomise first planet",
                 use_container_width=True,
                 on_click=select_random_planet_1
             )
@@ -166,11 +164,9 @@ with st.container():
 
         with random_col:
             st.button(
-                "🎲",
-                key="random_2",
-                help="Randomise second planet",
-                use_container_width=True,
-                on_click=select_random_planet_2
+                "🎲 ",
+            use_container_width=True,
+            on_click=select_random_planet_2
             )
 
 st.session_state["selected_planet_1"] = name1
