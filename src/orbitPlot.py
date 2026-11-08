@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 
-def display_orbit(planet_name, pl_orbsmax, pl_orbeccen, pl_orbper):
+def display_orbit(planet_name, pl_orbsmax, pl_orbeccen, pl_orbper,hostname):
 
     # Check that both measurements exist
     a = pd.to_numeric(pl_orbsmax, errors="coerce")
@@ -121,7 +121,7 @@ def display_orbit(planet_name, pl_orbsmax, pl_orbeccen, pl_orbper):
         x=[0],
         y=[0],
         mode="markers",
-        name="Host star",
+        name=hostname,
         marker=dict(size=18, color="#FFD166", symbol="star")
     ))
 
