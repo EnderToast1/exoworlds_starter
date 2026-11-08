@@ -8,7 +8,7 @@ def apply_global_styles():
     --standard-text: 1rem;
     --small-text: 0.8rem;
     --big-text: 1.2rem;
-    --heading-small: 2rem;
+    --heading-small: 1.7rem;
     --heading-big: 4.6rem;
 }
     
