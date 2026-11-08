@@ -95,14 +95,14 @@ def calculate_habitability(temperature, atmosphere, water, gravity):
 
 
 
-
+st.set_page_config(page_title="World Engineer | ExoWorlds", page_icon="", layout="wide")
 apply_global_styles()
 ROOT = Path(__file__).resolve().parent.parent
 LOGO = ROOT / "static" / "EWE_Logo.png"
 
 left, right = st.columns([4, 1])
 with left:
-    st.set_page_config(page_title="World Engineer | ExoWorlds", page_icon="", layout="wide")
+
     st.title(" World Engineer")
     st.caption("Create a hypothetical planet by changing its physical environment.")
 with right:
@@ -134,26 +134,77 @@ score=calculate_habitability(temperature, atmosphere, water, gravity)
 
 with right:
     st.subheader("Your world")
-    # Use temperature and water coverage to create a simple illustrative colour.
-    world_colour=get_temperature_colour(temperature)
+
+    world_colour = get_temperature_colour(temperature)
+
     if temperature < -20:
         world_name = "Frozen world"
+        land_rgb = "210, 230, 245"
     elif temperature > 65:
         world_name = "Scorched world"
+        land_rgb = "190, 75, 35"
     else:
         world_name = "Temperate-looking world"
+        land_rgb = "75, 145, 85"
 
-    st.markdown(f"""
-    <div style="display:flex;justify-content:center;align-items:center;min-height:270px;
-                background:radial-gradient(circle,rgba(72,92,160,.22),rgba(10,15,30,.1) 65%);
-                border-radius:22px;">
-      <div style="width:{100*radius}px;height:{100*radius}px;border-radius:50%;
-                  background:radial-gradient(circle at 32% 28%, #ffffffaa, transparent 18%),
-                  radial-gradient(circle at 35% 35%, {world_colour}, #17264f 78%);
-                  box-shadow:0 0 45px {world_colour}88, inset -22px -18px 35px #050817;
-                  border:1px solid #ffffff33;"></div>
-    </div>
-    """, unsafe_allow_html=True)
+    land_opacity = max(0.05, min(0.9, (100 - water) / 100))
+
+    planet_size = int(130 + radius * 35)
+
+    atmosphere_strength = min(atmosphere / 5, 1)
+    glow_size = 8 + int(atmosphere_strength * 15)
+
+    st.markdown(
+        f"""
+         <div style="
+             display:flex;
+             justify-content:center;
+             align-items:center;
+             height:330px;
+             background:radial-gradient(
+                 circle,
+                 rgba(72,92,160,0.2),
+                 transparent 70%
+             );
+         ">
+             <div style="
+                 width:{planet_size}px;
+                 height:{planet_size}px;
+                 border-radius:50%;
+                 position:relative;
+                 background:
+                     radial-gradient(
+                         ellipse at 65% 25%,
+                         rgba(255,255,255,0.5) 0%,
+                         transparent 20%
+                     ),
+                     radial-gradient(
+                         ellipse at 25% 65%,
+                         rgba({land_rgb},{land_opacity}) 0%,
+                         transparent 30%
+                     ),
+                     radial-gradient(
+                         ellipse at 65% 65%,
+                         rgba({land_rgb},{land_opacity}) 0%,
+                         transparent 25%
+                     ),
+                     radial-gradient(
+                         circle at 35% 35%,
+                         {world_colour} 0%,
+                         #17264f 75%,
+                         #050817 100%
+                     );
+                 box-shadow:
+                     0 0 {glow_size}px {world_colour},
+                     inset -25px -15px 35px rgba(0,0,0,0.9),
+                     inset 5px 5px 20px rgba(255,255,255,0.25);
+                 border:1px solid rgba(255,255,255,0.3);
+             "></div>
+         </div>
+         """,
+        unsafe_allow_html=True
+    )
+
     st.markdown(f"### {world_name}")
     st.metric("Illustrative environment score", f"{score}/100")
     st.progress(score / 100)
