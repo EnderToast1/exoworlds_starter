@@ -1,9 +1,6 @@
 import random
 from pathlib import Path
 
-import pandas as pd
-import plotly.graph_objects as go
-import streamlit as st
 
 from Style import apply_global_styles
 from src.orbitPlot import display_orbit
@@ -230,11 +227,13 @@ with left:
         earth_label="Earth masses"
     )
 with right:
-    compare_with_earth(
+    compare_planets(
+        "Earth",
+    365.24219,
         p["pl_name"],
         p["pl_orbper"],
         "Orbital period (Days)",
-        earth_label="Earth Days"
+        2
     )
 
 left,right =st.columns([1, 1])
