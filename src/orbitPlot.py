@@ -206,14 +206,10 @@ def display_orbit(planet_name, hostname, planets):
         range(first_planet_trace, first_planet_trace + path_count)
     )
 
-    for cycle in range(repeat_count):
+    for _ in range(repeat_count):
         for step in range(frame_count):
-            # Continuous system clock so companions keep their place when the
-            # reference planet completes an orbit and loops.
-            elapsed_days = (
-                (cycle * frame_count + step) / frame_count
-            ) * reference["period"]
-            reference_day = elapsed_days % reference["period"]
+            # Shared system clock in days, one loop = one orbit of the reference planet.
+            elapsed_days = (step / frame_count) * reference["period"]
             frame_data = []
 
             for orbiter in orbiters:
@@ -232,7 +228,7 @@ def display_orbit(planet_name, hostname, planets):
             frame_data.append(
                 go.Scatter(
                     text=[
-                        f"Day {reference_day:.1f} / {reference['period']:.1f}"
+                        f"Day {elapsed_days:.1f} / {reference['period']:.1f}"
                         f" ({reference['name']})"
                     ]
                 )
